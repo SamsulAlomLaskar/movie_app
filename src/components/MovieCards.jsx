@@ -3,15 +3,15 @@ import React from "react";
 const MovieCards = ({
   movie: {
     title,
-    original_title,
+    // original_title,
     id,
     poster_path,
     release_date,
     vote_average,
-    overview,
+    // overview,
     original_language,
     adult,
-    backdrop_path,
+    // backdrop_path,
   },
 }) => {
   return (
