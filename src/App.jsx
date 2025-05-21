@@ -70,8 +70,6 @@ const App = () => {
     }
   };
 
-  console.log(trendingMovies, "trendingMovies");
-
   useDebounce(() => setDebouncedSearchMovie(searchMovie), 500, [searchMovie]);
 
   useEffect(() => {

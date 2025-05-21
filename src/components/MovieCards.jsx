@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 const MovieCards = ({
   movie: {
@@ -14,8 +14,11 @@ const MovieCards = ({
     // backdrop_path,
   },
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  console.log(isOpen);
+
   return (
-    <div className="movie-card" key={id}>
+    <div className="movie-card" key={id} onClick={() => setIsOpen(!isOpen)}>
       <img
         src={
           poster_path
