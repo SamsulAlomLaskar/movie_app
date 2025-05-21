@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import MovieModal from "./MovieModal";
 
 const MovieCards = ({
   movie: {
@@ -14,11 +15,15 @@ const MovieCards = ({
     // backdrop_path,
   },
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen);
+  const [isClicked, setIsClicked] = useState(false);
+  console.log(isClicked);
 
   return (
-    <div className="movie-card" key={id} onClick={() => setIsOpen(!isOpen)}>
+    <div
+      className="movie-card"
+      key={id}
+      onClick={() => setIsClicked(!isClicked)}
+    >
       <img
         src={
           poster_path
@@ -44,6 +49,7 @@ const MovieCards = ({
         <span>⁘</span>
         <p className="adult">{adult == false ? "UA" : "18+"}</p>
       </div>
+      {isClicked && <MovieModal />}
     </div>
   );
 };
