@@ -16,7 +16,6 @@ const MovieCards = ({
   },
 }) => {
   const [isClicked, setIsClicked] = useState(false);
-  console.log(isClicked);
 
   return (
     <div
