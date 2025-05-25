@@ -4,7 +4,6 @@ import Spinner from "./components/Spinner";
 import MovieCards from "./components/MovieCards";
 import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCountHistory } from "./appwrite.setup";
-import BrainTechMap from "./components/BrainTech";
 
 const App = () => {
   const [searchMovie, setSearchMovie] = useState("");
@@ -120,7 +119,6 @@ const App = () => {
           )}
         </section>
       </div>
-      {/* <BrainTechMap /> */}
     </main>
   );
 };

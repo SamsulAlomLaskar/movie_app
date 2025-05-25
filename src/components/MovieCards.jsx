@@ -4,15 +4,15 @@ import MovieModal from "./MovieModal";
 const MovieCards = ({
   movie: {
     title,
-    // original_title,
+    original_title,
     id,
     poster_path,
     release_date,
     vote_average,
-    // overview,
+    overview,
     original_language,
     adult,
-    // backdrop_path,
+    backdrop_path,
   },
 }) => {
   const [isClicked, setIsClicked] = useState(false);
@@ -47,8 +47,18 @@ const MovieCards = ({
         </p>
         <span>⁘</span>
         <p className="adult">{adult == false ? "UA" : "18+"}</p>
+        <span>⁘</span>
+        <p className="adult">
+          <MovieModal
+            title={title}
+            original_title={original_title}
+            id={id}
+            release_date={release_date}
+            overview={overview}
+            backdrop_path={backdrop_path}
+          />
+        </p>
       </div>
-      {isClicked && <MovieModal />}
     </div>
   );
 };

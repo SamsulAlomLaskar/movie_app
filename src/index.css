@@ -35,6 +35,10 @@
     @apply text-2xl font-bold text-white sm:text-3xl;
   }
 
+  h3 {
+    @apply text-2xl font-bold text-sky-950 sm:text-3xl;
+  }
+
   main {
     @apply min-h-screen relative bg-primary;
   }
@@ -75,6 +79,22 @@
     & ul li img {
       @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5;
     }
+  }
+
+  .modal-card {
+    @apply rounded-2xl shadow-inner shadow-light-100/10 backdrop:blur-3xl;
+
+    & img {
+      @apply rounded-lg h-55 w-full;
+    }
+
+    & p {
+      @apply text-dark-100 text-base;
+    }
+
+    /* .modal-button {
+      @apply bg-dark-100;
+    } */
   }
 
   .search {
