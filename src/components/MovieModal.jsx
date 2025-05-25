@@ -19,7 +19,11 @@ const MovieModal = ({ title, original_title, overview, backdrop_path }) => {
 
   return (
     <React.Fragment>
-      <span variant="outlined" onClick={handleClickOpen}>
+      <span
+        variant="outlined"
+        onClick={handleClickOpen}
+        style={{ cursor: "pointer" }}
+      >
         ⋮
       </span>
       <Dialog
