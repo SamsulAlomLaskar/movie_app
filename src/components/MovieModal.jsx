@@ -48,11 +48,7 @@ const MovieModal = ({ title, original_title, overview, backdrop_path }) => {
           <p>{overview ? overview : "No overview available"}</p>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleClose}
-            autoFocus
-            style={{ background: "oklch(78.9% 0.154 211.53)" }}
-          >
+          <Button onClick={handleClose} style={{ background: "#030014" }}>
             Close
           </Button>
         </DialogActions>
