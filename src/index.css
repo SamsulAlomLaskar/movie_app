@@ -28,7 +28,7 @@
   }
 
   h1 {
-    @apply mx-auto max-w-5xl text-center text-3xl font-bold leading-tight tracking-[-1%] text-white sm:text-[60px] sm:leading-[70px];
+    @apply mx-auto max-w-5xl mt-14 text-center text-3xl font-bold leading-tight tracking-[-1%] text-white sm:text-[60px] sm:leading-[70px];
   }
 
   h2 {
@@ -78,6 +78,26 @@
 
     & ul li img {
       @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5;
+    }
+  }
+
+  .navbar {
+    @apply left-0 right-0 z-20 bg-[#010124] text-white shadow-md px-3 py-0 flex-2/12 items-baseline justify-between;
+
+    & img {
+      @apply w-10 h-10 object-contain;
+    }
+
+    & .links {
+      @apply flex items-center gap-5;
+
+      & a {
+        @apply text-white font-bold text-base hover:text-blue-100 transition-colors;
+      }
+    }
+
+    & .search-icon {
+      @apply w-6 h-6 object-contain cursor-pointer;
     }
   }
 
