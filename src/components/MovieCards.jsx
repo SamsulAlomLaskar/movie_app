@@ -31,6 +31,14 @@ const MovieCards = ({
         }
         alt={title}
       />
+
+      <button
+      // className={`favorite-btn ${favorite ? "active" : ""}`}
+      // onClick={onFavoriteClick}
+      >
+        ♥
+      </button>
+
       <div className="mt-4">
         <h3>{title}</h3>
       </div>

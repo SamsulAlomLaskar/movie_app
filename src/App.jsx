@@ -4,6 +4,7 @@ import Spinner from "./components/Spinner";
 import MovieCards from "./components/MovieCards";
 import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCountHistory } from "./appwrite.setup";
+import NavBar from "./components/NavBar";
 
 const App = () => {
   const [searchMovie, setSearchMovie] = useState("");
@@ -83,6 +84,7 @@ const App = () => {
     <main>
       <div className="pattern" />
       <div className="wrapper">
+        <NavBar />
         <header>
           <h1>
             {/* <img src="./hero.png" alt="Hero Banner" /> */}
