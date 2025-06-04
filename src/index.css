@@ -3,6 +3,12 @@
 
 @import "tailwindcss";
 
+@layer base {
+  ::selection {
+    @apply text-white bg-sky-800;
+  }
+}
+
 @theme {
   --color-primary: #030014;
 

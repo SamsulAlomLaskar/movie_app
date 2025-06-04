@@ -17,6 +17,10 @@ const MovieCards = ({
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
+  const onFavouriteClick = () => {
+    alert("Added to favourites!");
+  };
+
   return (
     <div
       className="movie-card"
@@ -31,13 +35,14 @@ const MovieCards = ({
         }
         alt={title}
       />
-
-      <button
-      // className={`favorite-btn ${favorite ? "active" : ""}`}
-      // onClick={onFavoriteClick}
-      >
-        ♥
-      </button>
+      <div className="favourite-btn" onClick={onFavouriteClick}>
+        <button
+        // className={`favorite-btn ${favorite ? "active" : ""}`}
+        // onClick={onFavoriteClick}
+        >
+          ♥
+        </button>
+      </div>
 
       <div className="mt-4">
         <h3>{title}</h3>
