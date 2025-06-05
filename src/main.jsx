@@ -8,10 +8,7 @@ import Favourites from "./components/Favourites.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/favourite" element={<Favourites />} />
-      </Routes>
+      <App />
     </BrowserRouter>
   </StrictMode>
 );
