@@ -5,8 +5,6 @@ import MovieCards from "./components/MovieCards";
 import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCountHistory } from "./appwrite.setup";
 import NavBar from "./components/NavBar";
-import { Routes, Route } from "react-router-dom";
-import Favourites from "./components/Favourites";
 
 const App = () => {
   const [searchMovie, setSearchMovie] = useState("");
