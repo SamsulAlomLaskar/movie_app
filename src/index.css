@@ -87,24 +87,8 @@
     }
   }
 
-  .navbar {
-    @apply left-0 right-0 z-20 bg-[#010124] text-white shadow-md px-3 py-0 flex-2/12 items-baseline justify-between;
-
-    & img {
-      @apply w-10 h-10 object-contain;
-    }
-
-    & .links {
-      @apply flex items-center gap-5;
-
-      & a {
-        @apply text-white font-bold text-base hover:text-blue-100 transition-colors;
-      }
-    }
-
-    & .search-icon {
-      @apply w-6 h-6 object-contain cursor-pointer;
-    }
+  .search-icon {
+    @apply w-6 h-6 object-contain cursor-pointer;
   }
 
   .modal-card {
@@ -205,4 +189,20 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.navbar {
+  @apply bg-dark-100 px-6 py-3 md:px-10 md:py-4 flex justify-between items-center;
+}
+
+.navbar-logo {
+  @apply text-white font-bold text-xl md:text-2xl;
+}
+
+.navbar-routes {
+  @apply flex gap-5 md:gap-8 text-white;
+}
+
+.navbar-route {
+  @apply text-white text-base md:text-lg hover:underline transition duration-200;
 }

@@ -3,7 +3,6 @@ import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCountHistory } from "../appwrite.setup";
 import Search from "./Search";
 import Spinner from "./Spinner";
-import NavBar from "./NavBar";
 import MovieCards from "./MovieCards";
 
 const Home = () => {
@@ -85,7 +84,6 @@ const Home = () => {
     <main>
       <div className="pattern" />
       <div className="wrapper">
-        <NavBar />
         <header>
           <h1>
             {/* <img src="./hero.png" alt="Hero Banner" /> */}
