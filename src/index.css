@@ -206,3 +206,29 @@
 .navbar-route {
   @apply text-white text-base md:text-lg hover:underline transition duration-200;
 }
+
+/* ==================================== */
+
+.favourite {
+  @apply p-8 w-full box-border;
+}
+
+.favourite h2 {
+  @apply mb-8 text-center text-4xl text-white drop-shadow-md;
+}
+
+.favourite-empty {
+  @apply text-center px-8 py-16 bg-white/5 rounded-xl mx-auto my-8 max-w-xl;
+}
+
+.favourite-empty h2 {
+  @apply mb-4 text-2xl text-red-600;
+}
+
+.favourite-empty p {
+  @apply text-gray-400 text-lg leading-relaxed;
+}
+
+/* .movies-grid > * {
+  @apply animate-fadeIn;
+} */
