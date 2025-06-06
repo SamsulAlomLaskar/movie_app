@@ -232,3 +232,17 @@
 /* .movies-grid > * {
   @apply animate-fadeIn;
 } */
+
+/* =========================== */
+
+.favourite-btn {
+  @apply top-4 right-4 text-white text-xl p-2 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200;
+}
+
+.favourite-btn:hover {
+  @apply bg-black/80;
+}
+
+.favourite-btn.active {
+  @apply text-red-500;
+}
