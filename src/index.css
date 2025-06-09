@@ -128,10 +128,12 @@
   }
 
   .movie-card {
-    @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10;
+    @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10 relative;
 
     & img {
       @apply rounded-lg h-auto w-full;
+      position: relative;
+      display: block;
     }
 
     & h3 {
@@ -168,6 +170,18 @@
 
     & .content .adult {
       @apply text-gray-100 font-medium text-base;
+    }
+
+    & .favourite-btn {
+      @apply absolute top-6 right-6 text-white text-xl p-2 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200 z-10;
+    }
+
+    & .favourite-btn:hover {
+      @apply bg-black/80;
+    }
+
+    & .favourite-btn.active {
+      @apply text-red-500;
     }
   }
 }
@@ -232,17 +246,3 @@
 /* .movies-grid > * {
   @apply animate-fadeIn;
 } */
-
-/* =========================== */
-
-.favourite-btn {
-  @apply top-4 right-4 text-white text-xl p-2 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200;
-}
-
-.favourite-btn:hover {
-  @apply bg-black/80;
-}
-
-.favourite-btn.active {
-  @apply text-red-500;
-}

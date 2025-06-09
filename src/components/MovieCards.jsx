@@ -17,7 +17,8 @@ const MovieCards = ({
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
-  const onFavouriteClick = () => {
+  const onFavouriteClick = (e) => {
+    e.stopPropagation(); // Prevent the click from propagating to the card
     alert("Added to favourites!");
   };
 
@@ -36,12 +37,7 @@ const MovieCards = ({
         alt={title}
       />
       <div className="favourite-btn" onClick={onFavouriteClick}>
-        <button
-        // className={`favorite-btn ${favorite ? "active" : ""}`}
-        // onClick={onFavoriteClick}
-        >
-          ♥
-        </button>
+        <button>♥</button>
       </div>
 
       <div className="mt-4">
