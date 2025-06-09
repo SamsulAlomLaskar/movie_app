@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import MovieModal from "./MovieModal";
 import { useMovieContext } from "../contexts/MovieContext";
 import { Heart } from "lucide-react";
