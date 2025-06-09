@@ -36,7 +36,6 @@ const MovieCards = ({
 
   const onFavouriteClick = (e) => {
     e.preventDefault();
-    alert("Favourite button clicked");
     if (favourite) {
       removeFromFavourites(id);
     } else {
@@ -45,11 +44,7 @@ const MovieCards = ({
   };
 
   return (
-    <div
-      className="movie-card"
-      key={id}
-      onClick={() => setIsClicked(!isClicked)}
-    >
+    <div className="movie-card" key={id}>
       <img
         src={
           poster_path

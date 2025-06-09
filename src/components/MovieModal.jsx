@@ -44,7 +44,7 @@ const MovieModal = ({ title, original_title, overview, backdrop_path }) => {
         }}
       >
         <DialogTitle id="alert-dialog-title" className="text-red-400">
-          <h3>{original_title}</h3>
+          <p className="original-title">{original_title}</p>
           <img
             src={
               backdrop_path

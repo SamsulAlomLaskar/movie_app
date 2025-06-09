@@ -3,6 +3,8 @@ import { Client, Databases, ID, Query } from "appwrite";
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
+const FAVOURITE_COLLECTION_ID = import.meta.env
+  .VITE_APPWRITE_FAVOURITE_COLLECTION_ID;
 
 const client = new Client()
   .setEndpoint("https://cloud.appwrite.io/v1")
@@ -45,6 +47,40 @@ export const getTrendingMovies = async () => {
       Query.limit(5),
       Query.orderDesc("count"),
     ]);
+
+    return result.documents;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/* 
+adult:false
+backdrop_path:"/a3F9cXjRH488qcOqFmFZwqawBMU.jpg"
+id:1376434
+original_language: "en"
+original_title:"Predator: Killer of Killers"
+overview:"This original animated"
+popularity: 792.9766
+poster_path: "/lbimIPTVsSlnmqSW5ngEsUxtHLM.jpg"
+release_date:"2025-06-05"
+title: "Predator: Killer of Killers"
+vote_average: 8.063
+vote_count:230
+*/
+
+export const updateFavouriteMovie = async () => {
+  //! 1 Check if the movie is already in the favourites collection
+  //* 2 If not added add the movie to the favourites collection
+  //* 3 If already added, remove the movie from the favourites collection
+};
+
+export const getFavouriteMovies = async () => {
+  try {
+    const result = await database.listDocuments(
+      DATABASE_ID,
+      FAVOURITE_COLLECTION_ID
+    );
 
     return result.documents;
   } catch (error) {
