@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import MovieModal from "./MovieModal";
+import { useMovieContext } from "../contexts/MovieContext";
+import { Heart } from "lucide-react";
 
 const MovieCards = ({
   movie: {
@@ -15,11 +17,32 @@ const MovieCards = ({
     backdrop_path,
   },
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const { addToFavourites, removeFromFavourites, isFavourite } =
+    useMovieContext();
+
+  const movie = {
+    title,
+    original_title,
+    id,
+    poster_path,
+    release_date,
+    vote_average,
+    overview,
+    original_language,
+    adult,
+    backdrop_path,
+  };
+
+  const favourite = isFavourite(id);
 
   const onFavouriteClick = (e) => {
-    e.stopPropagation(); // Prevent the click from propagating to the card
-    alert("Added to favourites!");
+    e.preventDefault();
+    alert("Favourite button clicked");
+    if (favourite) {
+      removeFromFavourites(id);
+    } else {
+      addToFavourites(movie);
+    }
   };
 
   return (
@@ -36,8 +59,11 @@ const MovieCards = ({
         }
         alt={title}
       />
-      <div className="favourite-btn" onClick={onFavouriteClick}>
-        <button>♥</button>
+      <div
+        className={`favourite-btn ${favourite ? "active" : ""}`}
+        onClick={onFavouriteClick}
+      >
+        <Heart className={`w-6 h-6 ${favourite ? "active" : ""}`} />
       </div>
 
       <div className="mt-4">
