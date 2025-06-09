@@ -31,7 +31,6 @@ export const MovieProvider = ({ children }) => {
   const addToFavourites = (movie: movie) => {
     if (favourites.some((fav) => fav.id === movie.id)) {
       console.warn("Movie is already in favourites");
-      alert("Movie is already in favourites");
       return;
     }
     setFavourites((prev) => [...prev, movie]);

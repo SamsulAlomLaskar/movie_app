@@ -1,6 +1,7 @@
 import MovieModal from "./MovieModal";
 import { useMovieContext } from "../contexts/MovieContext";
 import { Heart } from "lucide-react";
+import { updateFavouriteMovie } from "../appwrite.setup";
 
 const MovieCards = ({
   movie: {
@@ -38,8 +39,10 @@ const MovieCards = ({
     e.preventDefault();
     if (favourite) {
       removeFromFavourites(id);
+      updateFavouriteMovie(id, movie);
     } else {
       addToFavourites(movie);
+      updateFavouriteMovie(id, movie);
     }
   };
 

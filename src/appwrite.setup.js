@@ -69,8 +69,47 @@ vote_average: 8.063
 vote_count:230
 */
 
-export const updateFavouriteMovie = async () => {
+export const updateFavouriteMovie = async (movieId, movie) => {
   //! 1 Check if the movie is already in the favourites collection
+
+  try {
+    const result = await database.listDocuments(
+      DATABASE_ID,
+      FAVOURITE_COLLECTION_ID,
+      [Query.equal("id", movieId)]
+    );
+
+    if (result.documents.length > 0) {
+      const doc = result.documents[0];
+
+      await database.deleteDocument(
+        DATABASE_ID,
+        FAVOURITE_COLLECTION_ID,
+        doc.$id
+      );
+    } else {
+      await database.createDocument(
+        DATABASE_ID,
+        FAVOURITE_COLLECTION_ID,
+        ID.unique(),
+        {
+          id: movieId,
+          title: movie.title,
+          original_title: movie.original_title,
+          overview: movie.overview,
+          poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          backdrop_path: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`,
+          release_date: movie.release_date.split("-")[0],
+          vote_average: movie.vote_average,
+          adult: movie.adult,
+          original_language: movie.original_language,
+        }
+      );
+      console.log("Movie added to favourites successfully");
+    }
+  } catch (error) {
+    console.log(error, "Error while updating favourite movie");
+  }
   //* 2 If not added add the movie to the favourites collection
   //* 3 If already added, remove the movie from the favourites collection
 };
