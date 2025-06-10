@@ -99,7 +99,7 @@ export const updateFavouriteMovie = async (movieId, movie) => {
           overview: movie.overview,
           poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
           backdrop_path: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`,
-          release_date: movie.release_date.split("-")[0],
+          release_date: movie.release_date.split("-").reverse().join("-"),
           vote_average: movie.vote_average,
           adult: movie.adult,
           original_language: movie.original_language,
@@ -121,6 +121,7 @@ export const getFavouriteMovies = async () => {
       FAVOURITE_COLLECTION_ID
     );
 
+    console.log("Favourite movies fetched successfully", result.documents);
     return result.documents;
   } catch (error) {
     console.log(error);

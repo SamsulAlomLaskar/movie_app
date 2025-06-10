@@ -37,12 +37,13 @@ const MovieCards = ({
 
   const onFavouriteClick = (e) => {
     e.preventDefault();
+
+    updateFavouriteMovie(id, movie);
+
     if (favourite) {
       removeFromFavourites(id);
-      updateFavouriteMovie(id, movie);
     } else {
       addToFavourites(movie);
-      updateFavouriteMovie(id, movie);
     }
   };
 
