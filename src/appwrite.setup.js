@@ -121,7 +121,7 @@ export const getFavouriteMovies = async () => {
       FAVOURITE_COLLECTION_ID
     );
 
-    console.log("Favourite movies fetched successfully", result.documents);
+    console.log("Favourite movies fetched Apwrite", result.documents);
     return result.documents;
   } catch (error) {
     console.log(error);

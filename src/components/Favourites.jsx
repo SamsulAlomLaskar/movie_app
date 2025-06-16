@@ -5,27 +5,30 @@ import { getFavouriteMovies } from "../appwrite.setup";
 
 const Favourites = () => {
   const { favourites } = useMovieContext();
-  const [fetchedFavMovies, setFetchedFavMovies] = useState(null);
-
-  useEffect(async () => {
-    const data = await getFavouriteMovies();
-    setFetchedFavMovies(data);
-    console.log("Fetched Movies in Fav.JSX: ", data);
-  }, []);
+  const [fetchedFavMovies, setFetchedFavMovies] = useState();
 
   useEffect(() => {
-    if (
-      localStorage.getItem("favourites") == null ||
-      localStorage.getItem("favourites") == undefined ||
-      localStorage.getItem("favourites") === "[]" ||
-      localStorage.getItem("favourites") === ""
-    ) {
-      const data = getFavouriteMovies();
-      setFetchedFavMovies(data);
-      console.log("Fetched Movies in Fav.JSX: ", data);
-      localStorage.setItem("favourites", JSON.parse([fetchedFavMovies]));
-    }
-  }, [favourites]);
+    const fetchAppWriteMovies = async () => {
+      try {
+        const data = await getFavouriteMovies();
+        setFetchedFavMovies(data);
+        const favLocalStorage = localStorage.getItem("favourites");
+
+        if (
+          favLocalStorage == null ||
+          favLocalStorage == undefined ||
+          favLocalStorage === "[]" ||
+          favLocalStorage === ""
+        ) {
+          localStorage.setItem("favourites", JSON.stringify(data));
+        }
+      } catch (error) {
+        console.log("Error fetching movies from Appwrite: ", error);
+      }
+    };
+
+    fetchAppWriteMovies();
+  }, []);
 
   if (favourites.length > 0) {
     return (
