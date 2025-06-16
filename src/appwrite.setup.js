@@ -90,7 +90,6 @@ export const updateFavouriteMovie = async (movieId, movie) => {
           original_language: movie.original_language,
         }
       );
-      console.log("Movie added to favourites successfully");
     }
   } catch (error) {
     console.log(error, "Error while updating favourite movie");
@@ -113,8 +112,20 @@ export const getFavouriteMovies = async () => {
       FAVOURITE_COLLECTION_ID
     );
 
-    console.log("Favourite movies fetched Apwrite", result.documents);
-    return result.documents;
+    const favs = result.documents.map((doc) => ({
+      id: doc.id,
+      title: doc.title,
+      original_title: doc.original_title,
+      overview: doc.overview,
+      poster_path: doc.poster_path,
+      backdrop_path: doc.backdrop_path,
+      release_date: doc.release_date,
+      vote_average: doc.vote_average,
+      adult: doc.adult,
+      original_language: doc.original_language,
+    }));
+
+    return favs;
   } catch (error) {
     console.log(error);
   }

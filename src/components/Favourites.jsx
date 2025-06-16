@@ -20,6 +20,8 @@ const Favourites = () => {
         ) {
           const data = await getFavouriteMovies();
           localStorage.setItem("favourites", JSON.stringify(data));
+          console.log("Favourite movies fetched from Appwrite", data);
+
           setFavourites(data);
         } else {
           setFavourites(JSON.parse(favLocalStorage));
