@@ -34,7 +34,7 @@
   }
 
   h1 {
-    @apply mx-auto max-w-5xl mt-14 text-center text-3xl font-bold leading-tight tracking-[-1%] text-white sm:text-[60px] sm:leading-[70px];
+    @apply mx-auto max-w-5xl mt-2 text-center text-3xl font-bold leading-tight tracking-[-1%] text-white sm:text-[60px] sm:leading-[70px];
   }
 
   h2 {

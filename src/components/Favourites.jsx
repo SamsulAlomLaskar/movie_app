@@ -1,26 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MovieCards from "./MovieCards";
 import { useMovieContext } from "../contexts/MovieContext";
 import { getFavouriteMovies } from "../appwrite.setup";
 
 const Favourites = () => {
-  const { favourites } = useMovieContext();
-  const [fetchedFavMovies, setFetchedFavMovies] = useState();
+  const { favourites, setFavourites } = useMovieContext();
 
   useEffect(() => {
     const fetchAppWriteMovies = async () => {
       try {
-        const data = await getFavouriteMovies();
-        setFetchedFavMovies(data);
         const favLocalStorage = localStorage.getItem("favourites");
 
         if (
+          !favLocalStorage ||
           favLocalStorage == null ||
           favLocalStorage == undefined ||
           favLocalStorage === "[]" ||
           favLocalStorage === ""
         ) {
+          const data = await getFavouriteMovies();
           localStorage.setItem("favourites", JSON.stringify(data));
+          setFavourites(data);
+        } else {
+          setFavourites(JSON.parse(favLocalStorage));
         }
       } catch (error) {
         console.log("Error fetching movies from Appwrite: ", error);

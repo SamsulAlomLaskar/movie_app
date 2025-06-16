@@ -82,6 +82,7 @@ const Home = () => {
 
   useEffect(() => {
     loadTrendingMovies();
+    fetchMovies();
   }, []);
 
   return (
@@ -90,7 +91,6 @@ const Home = () => {
       <div className="wrapper">
         <header>
           <h1>
-            {/* <img src="./hero.png" alt="Hero Banner" /> */}
             Find the <span className="text-gradient">Movies</span> You Would
             Love To Enjoy Without Any Hassle
           </h1>
