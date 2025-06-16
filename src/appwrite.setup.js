@@ -54,21 +54,6 @@ export const getTrendingMovies = async () => {
   }
 };
 
-/* 
-adult:false
-backdrop_path:"/a3F9cXjRH488qcOqFmFZwqawBMU.jpg"
-id:1376434
-original_language: "en"
-original_title:"Predator: Killer of Killers"
-overview:"This original animated"
-popularity: 792.9766
-poster_path: "/lbimIPTVsSlnmqSW5ngEsUxtHLM.jpg"
-release_date:"2025-06-05"
-title: "Predator: Killer of Killers"
-vote_average: 8.063
-vote_count:230
-*/
-
 export const updateFavouriteMovie = async (movieId, movie) => {
   //! 1 Check if the movie is already in the favourites collection
 
@@ -116,6 +101,13 @@ export const updateFavouriteMovie = async (movieId, movie) => {
 
 export const getFavouriteMovies = async () => {
   try {
+    if (localStorage.getItem("favourites")) {
+      const localFavs = JSON.parse(localStorage.getItem("favourites"));
+      if (localFavs.length > 0) {
+        console.log("Favourite movies fetched from local storage", localFavs);
+        return localFavs;
+      }
+    }
     const result = await database.listDocuments(
       DATABASE_ID,
       FAVOURITE_COLLECTION_ID

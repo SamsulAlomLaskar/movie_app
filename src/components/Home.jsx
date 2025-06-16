@@ -63,6 +63,10 @@ const Home = () => {
   const loadTrendingMovies = async () => {
     try {
       const movies = await getTrendingMovies();
+      if (!movies || movies.length === 0) {
+        console.log("No trending movies found");
+        return;
+      }
       setTrendingMovies(movies);
     } catch (error) {
       console.log("Error while fetching trending movies!");
