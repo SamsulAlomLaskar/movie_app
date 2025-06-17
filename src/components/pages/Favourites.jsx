@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import MovieCards from "./MovieCards";
-import { useMovieContext } from "../contexts/MovieContext";
-import { getFavouriteMovies } from "../appwrite.setup";
+import MovieCards from "../MovieCards";
+import { useMovieContext } from "../../contexts/MovieContext";
+import { getFavouriteMovies } from "../../appwrite.setup";
 
 const Favourites = () => {
   const { favourites, setFavourites } = useMovieContext();

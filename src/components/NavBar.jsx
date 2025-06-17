@@ -9,7 +9,16 @@ const NavBar = () => {
       </div>
       <div className="navbar-routes">
         <Link to="/" className="navnar-route">
-          Home
+          Popular
+        </Link>
+        <Link to="/toprated" className="navnar-route">
+          Top Rated
+        </Link>
+        <Link to="/nowplaying" className="navnar-route">
+          Now Playing
+        </Link>
+        <Link to="/upcoming" className="navnar-route">
+          Upcoming
         </Link>
         <Link to="/favourite" className="navnar-route">
           Favourites
