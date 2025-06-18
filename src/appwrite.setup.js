@@ -56,7 +56,8 @@ export const getTrendingMovies = async () => {
 
 export const updateFavouriteMovie = async (movieId, movie) => {
   //! 1 Check if the movie is already in the favourites collection
-
+  let date = new Date();
+  date = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
   try {
     const result = await database.listDocuments(
       DATABASE_ID,
@@ -78,6 +79,7 @@ export const updateFavouriteMovie = async (movieId, movie) => {
         FAVOURITE_COLLECTION_ID,
         ID.unique(),
         {
+          createdTimeStamp: date,
           id: movieId,
           title: movie.title,
           original_title: movie.original_title,
@@ -125,7 +127,7 @@ export const getFavouriteMovies = async () => {
       original_language: doc.original_language,
     }));
 
-    return favs;
+    return favs.sort((a, b) => a.release_date.localeCompare(b.release_date));
   } catch (error) {
     console.log(error);
   }

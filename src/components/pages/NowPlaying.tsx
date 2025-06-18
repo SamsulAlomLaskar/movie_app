@@ -26,7 +26,7 @@ const NowPlayingMovies = () => {
     const fetchData = async () => {
       setIsLoading(true);
       setErrorMessage("");
-      const result = await fetchMovies("now_playing");
+      const result = await fetchMovies("movie/now_playing");
 
       if (typeof result === "string") {
         setErrorMessage(result);

@@ -36,10 +36,7 @@ const Favourites = () => {
 
   if (favourites.length > 0) {
     return (
-      <div>
-        <div>
-          <header></header>
-        </div>
+      <div className="wrapper">
         <section className="all-movies">
           <h1>Your Favourite Movies</h1>
           <ul>

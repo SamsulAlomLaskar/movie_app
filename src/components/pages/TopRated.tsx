@@ -26,7 +26,7 @@ const TopRatedMovies = () => {
     const fetchData = async () => {
       setIsLoading(true);
       setErrorMessage("");
-      const result = await fetchMovies("top_rated");
+      const result = await fetchMovies("movie/top_rated");
 
       if (typeof result === "string") {
         setErrorMessage(result);
