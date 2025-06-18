@@ -1,21 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Spinner from "../Spinner";
+import MovieCards from "../MovieCards";
+import fetchMovies from "./fetchMovies";
+
+type Movie = {
+  id: number;
+  title: any;
+  original_title: any;
+  poster_path: any;
+  release_date: any;
+  vote_average: any;
+  overview: any;
+  original_language: any;
+  adult: any;
+  backdrop_path: any;
+  [key: string]: any;
+};
 
 const TopRatedMovies = () => {
-  const [fetchedMovies, setFetchedMovies] = useState();
+  const [fetchedMovies, setFetchedMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const BASE_API_URL = import.meta.env.VITE_TMDB_API_BASE_URL;
-  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      setErrorMessage("");
+      const result = await fetchMovies("movie/top_rated");
 
-  const API_OPTIONS = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${API_KEY}`,
-    },
-  };
+      if (typeof result === "string") {
+        setErrorMessage(result);
+        setFetchedMovies([]);
+      } else {
+        setFetchedMovies(result.fetchedMovies);
+        setErrorMessage(result.errorMessage);
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
-  return <h1>TopRated</h1>;
+  return (
+    <div className="wrapper">
+      <section className="all-movies">
+        <h1>Top rated movies...</h1>
+        {isLoading && <Spinner />}
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        {
+          <ul>
+            {fetchedMovies.map((movie) => (
+              <MovieCards key={movie.id} movie={movie} />
+            ))}
+          </ul>
+        }
+      </section>
+    </div>
+  );
 };
 
 export default TopRatedMovies;

@@ -36,13 +36,18 @@ const Favourites = () => {
 
   if (favourites.length > 0) {
     return (
-      <div className="all-movies">
-        <h1>Your Favourite Movies</h1>
-        <ul>
-          {favourites.map((movie) => (
-            <MovieCards key={movie.id} movie={movie} />
-          ))}
-        </ul>
+      <div>
+        <div>
+          <header></header>
+        </div>
+        <section className="all-movies">
+          <h1>Your Favourite Movies</h1>
+          <ul>
+            {favourites.map((movie) => (
+              <MovieCards key={movie.id} movie={movie} />
+            ))}
+          </ul>
+        </section>
       </div>
     );
   }
