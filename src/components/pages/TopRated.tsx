@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import Spinner from "../Spinner";
 import MovieCards from "../MovieCards";
 import fetchMovies from "./fetchMovies";
@@ -21,6 +21,12 @@ const TopRatedMovies = () => {
   const [fetchedMovies, setFetchedMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [page, setPage] = useState(1);
+  const [hasMoreMovie, setHasMoreMovie] = useState(true);
+
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  const lastMovieEleRef = useCallback(() => {}, []);
 
   useEffect(() => {
     const fetchData = async () => {
