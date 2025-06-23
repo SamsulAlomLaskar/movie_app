@@ -11,7 +11,7 @@ const NavBar = () => {
         <Link to="/" className="navnar-route">
           Popular
         </Link>
-        <Link to="/toprated" className="navnar-route">
+        <Link to="/top-rated" className="navnar-route">
           Top Rated
         </Link>
         <Link to="/nowplaying" className="navnar-route">

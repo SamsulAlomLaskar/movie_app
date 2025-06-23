@@ -26,39 +26,79 @@ const TopRatedMovies = () => {
 
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const lastMovieEleRef = useCallback(() => {}, []);
+  const lastMovieEleRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMoreMovie) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+
+      if (node) observer.current?.observe(node);
+    },
+    [isLoading, hasMoreMovie]
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       setErrorMessage("");
-      const result = await fetchMovies("movie/top_rated");
+      const result = await fetchMovies("movie/top_rated", page);
 
       if (typeof result === "string") {
         setErrorMessage(result);
         setFetchedMovies([]);
-      } else {
-        setFetchedMovies(result.fetchedMovies);
-        setErrorMessage(result.errorMessage);
-        setIsLoading(false);
+        return;
       }
+      if (result.fetchedMovies.length === 0) {
+        setErrorMessage(result.errorMessage);
+        setHasMoreMovie(false);
+      } else {
+        console.log("lastMovieEleRef called");
+
+        setFetchedMovies((prev) => {
+          const all = [...prev, ...result.fetchedMovies];
+          const unique = Array.from(
+            new Map(all.map((movie) => [movie.id, movie])).values()
+          );
+          return unique;
+        });
+      }
+      setIsLoading(false);
     };
     fetchData();
-  }, []);
+  }, [page]);
 
   return (
     <div className="wrapper">
       <section className="all-movies">
         <h1>Top rated movies...</h1>
-        {isLoading && <Spinner />}
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         {
           <ul>
-            {fetchedMovies.map((movie) => (
-              <MovieCards key={movie.id} movie={movie} />
-            ))}
+            {fetchedMovies.map((movie, index) => {
+              if (index === fetchedMovies.length - 1) {
+                return (
+                  <li key={movie.id} ref={lastMovieEleRef}>
+                    <MovieCards movie={movie} />
+                  </li>
+                );
+              }
+              return (
+                <li key={`${movie.id}-${index}`}>
+                  <MovieCards movie={movie} />
+                </li>
+              );
+            })}
           </ul>
         }
+        {isLoading && <Spinner />}
+        {!hasMoreMovie && (
+          <p className="text-center mt-4">No more movies to load.</p>
+        )}
       </section>
     </div>
   );

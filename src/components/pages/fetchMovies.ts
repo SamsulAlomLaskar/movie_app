@@ -1,4 +1,4 @@
-const fetchMovies = async (path: string) => {
+const fetchMovies = async (path: string, page: number = 1) => {
   let fetchedMovies: any = [];
   let errorMessage: string = "";
   const BASE_API_URL = import.meta.env.VITE_TMDB_API_BASE_URL;
@@ -12,7 +12,10 @@ const fetchMovies = async (path: string) => {
     },
   };
 
-  const response = await fetch(`${BASE_API_URL}/${path}`, API_OPTIONS);
+  const response = await fetch(
+    `${BASE_API_URL}/${path}?page=${page}`,
+    API_OPTIONS
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch movies");
@@ -25,7 +28,7 @@ const fetchMovies = async (path: string) => {
     return errorMessage;
   }
   fetchedMovies = data.results ?? [];
-  return { fetchedMovies, errorMessage };
+  return { fetchedMovies, errorMessage: "" };
 };
 
 export default fetchMovies;
