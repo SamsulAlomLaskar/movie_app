@@ -57,8 +57,6 @@ const TopRatedMovies = () => {
         setErrorMessage(result.errorMessage);
         setHasMoreMovie(false);
       } else {
-        console.log("lastMovieEleRef called");
-
         setFetchedMovies((prev) => {
           const all = [...prev, ...result.fetchedMovies];
           const unique = Array.from(
@@ -97,7 +95,7 @@ const TopRatedMovies = () => {
         }
         {isLoading && <Spinner />}
         {!hasMoreMovie && (
-          <p className="text-center mt-4">No more movies to load.</p>
+          <p className="text-red-500">No more movies to load.</p>
         )}
       </section>
     </div>
