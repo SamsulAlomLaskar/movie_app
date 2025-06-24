@@ -26,9 +26,20 @@ const UpcomingMovies = () => {
   const observer = useRef<IntersectionObserver | null>(null);
 
   const lastEleRef = useCallback(
-    (node: HTMLDivElement | null) => {},
+    (node: HTMLDivElement | null) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMoreMovie)
+          setPage((prevPage) => prevPage + 1);
+      });
+
+      if (node) observer.current?.observe(node);
+    },
     [isLoading, hasMoreMovie]
   );
+
   useEffect(() => {
     setIsLoading(true);
     setErrorMessage("");
@@ -37,9 +48,16 @@ const UpcomingMovies = () => {
       if (typeof result === "string") {
         setErrorMessage(result);
         setFetchedMovies([]);
-      } else {
-        setFetchedMovies(result.fetchedMovies);
+        return;
+      }
+      if (result.fetchedMovies.length === 0) {
+        setHasMoreMovie(false);
         setErrorMessage(result.errorMessage);
+      } else {
+        setFetchedMovies((prevMovies) => [
+          ...prevMovies,
+          ...result.fetchedMovies,
+        ]);
       }
     };
     fetchData();
@@ -50,15 +68,25 @@ const UpcomingMovies = () => {
     <div className="wrapper">
       <section className="all-movies">
         <h1>Upcoming Movies...</h1>
-        {isLoading && <Spinner />}
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         {
           <ul>
-            {fetchedMovies.map((movie) => (
-              <MovieCards key={movie.id} movie={movie} />
-            ))}
+            {fetchedMovies.map((movie, index) => {
+              if (index === fetchedMovies.length - 1) {
+                return (
+                  <li key={movie.id} ref={lastEleRef}>
+                    <MovieCards movie={movie} />
+                  </li>
+                );
+              }
+              return <MovieCards key={movie.id} movie={movie} />;
+            })}
           </ul>
         }
+        {isLoading && <Spinner />}
+        {!hasMoreMovie && (
+          <p className="text-red-500">No more movies to load...</p>
+        )}
       </section>
     </div>
   );
