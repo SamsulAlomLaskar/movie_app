@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCountHistory } from "../appwrite.setup";
 import Search from "./Search";
@@ -12,6 +12,10 @@ const Home = () => {
   const [debouncedSearchMovie, setDebouncedSearchMovie] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMoreMovie, setHasMoreMovie] = useState(true);
+
+  const observer = useRef(null);
 
   const API_BASE_URL = import.meta.env.VITE_TMDB_API_BASE_URL;
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -24,13 +28,27 @@ const Home = () => {
     },
   };
 
+  const lastMovieEleRef = useCallback(
+    (node) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMoreMovie) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [hasMoreMovie, isLoading]
+  );
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
     setErrorMessage("");
     try {
       const endpoint = query
         ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
-        : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+        : `${API_BASE_URL}/discover/movie?page=${page}`;
 
       const response = await fetch(endpoint, API_OPTIONS);
 
@@ -45,7 +63,18 @@ const Home = () => {
         setMovieList([]);
         return;
       }
-      setMovieList(data.results || []);
+      if (data.results.length === 0) {
+        setErrorMessage(data.Error);
+        setHasMoreMovie(false);
+      } else {
+        setMovieList((prev) => {
+          const all = [...prev, ...data.results];
+          const unique = Array.from(
+            new Map(all.map((movie) => [movie.id, movie])).values()
+          );
+          return unique;
+        });
+      }
 
       if (query && data.results.length > 0) {
         await updateSearchCountHistory(query, data.results[0]);
@@ -80,8 +109,11 @@ const Home = () => {
 
   useEffect(() => {
     loadTrendingMovies();
-    fetchMovies();
   }, []);
+
+  useEffect(() => {
+    fetchMovies();
+  }, [page]);
 
   return (
     <main>
@@ -109,16 +141,29 @@ const Home = () => {
         )}
         <section className="all-movies">
           <h2>All Movies</h2>
-          {isLoading ? (
-            <Spinner />
-          ) : errorMessage ? (
+          {errorMessage ? (
             <p className="text-red-500">{errorMessage}</p>
           ) : (
             <ul>
-              {movieList.map((movie) => (
-                <MovieCards key={movie.id} movie={movie} />
-              ))}
+              {movieList.map((movie, index) => {
+                if (index === movieList.length - 1) {
+                  return (
+                    <li key={movie.id} ref={lastMovieEleRef}>
+                      <MovieCards movie={movie} />
+                    </li>
+                  );
+                }
+                return (
+                  <li key={movie.id}>
+                    <MovieCards movie={movie} />
+                  </li>
+                );
+              })}
             </ul>
+          )}
+          {isLoading && <Spinner />}
+          {!hasMoreMovie && (
+            <p className="text-red-500">No more movies to load</p>
           )}
         </section>
       </div>

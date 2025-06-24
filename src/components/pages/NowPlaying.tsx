@@ -80,7 +80,11 @@ const NowPlayingMovies = () => {
                   </li>
                 );
               }
-              return <MovieCards key={movies.id} movie={movies} />;
+              return (
+                <li key={movies.id}>
+                  <MovieCards movie={movies} />
+                </li>
+              );
             })}
           </ul>
         }

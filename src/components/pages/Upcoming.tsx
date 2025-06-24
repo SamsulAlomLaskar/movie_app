@@ -79,7 +79,11 @@ const UpcomingMovies = () => {
                   </li>
                 );
               }
-              return <MovieCards key={movie.id} movie={movie} />;
+              return (
+                <li key={movie.id}>
+                  <MovieCards movie={movie} />
+                </li>
+              );
             })}
           </ul>
         }

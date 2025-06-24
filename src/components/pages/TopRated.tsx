@@ -86,7 +86,7 @@ const TopRatedMovies = () => {
                 );
               }
               return (
-                <li key={`${movie.id}-${index}`}>
+                <li key={movie.id}>
                   <MovieCards movie={movie} />
                 </li>
               );
