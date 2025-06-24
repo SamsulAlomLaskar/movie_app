@@ -243,6 +243,8 @@
   @apply text-gray-400 text-lg leading-relaxed;
 }
 
-/* .movies-grid > * {
-  @apply animate-fadeIn;
-} */
+/* ===================== */
+
+.scroll-to-top {
+  @apply fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full text-lg cursor-pointer z-50 shadow-md hover:bg-blue-700 transition;
+}

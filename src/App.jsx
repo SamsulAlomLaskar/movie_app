@@ -6,6 +6,7 @@ import Favourites from "./components/pages/Favourites";
 import TopRatedMovies from "./components/pages/TopRated";
 import NowPlayingMovies from "./components/pages/NowPlaying";
 import UpcomingMovies from "./components/pages/Upcoming";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/now-playing" element={<NowPlayingMovies />} />
           <Route path="/upcoming" element={<UpcomingMovies />} />
         </Routes>
+        <ScrollToTopButton />
       </main>
     </MovieProvider>
   );
