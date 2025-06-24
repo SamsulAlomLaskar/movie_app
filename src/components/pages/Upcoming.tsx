@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import fetchMovies from "./fetchMovies";
 import Spinner from "../Spinner";
 import MovieCards from "../MovieCards";
@@ -20,12 +20,20 @@ const UpcomingMovies = () => {
   const [fetchedMovies, setFetchedMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [hasMoreMovie, setHasMoreMovie] = useState(true);
+  const [page, setPage] = useState(1);
 
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  const lastEleRef = useCallback(
+    (node: HTMLDivElement | null) => {},
+    [isLoading, hasMoreMovie]
+  );
   useEffect(() => {
     setIsLoading(true);
     setErrorMessage("");
     const fetchData = async () => {
-      const result = await fetchMovies("movie/upcoming");
+      const result = await fetchMovies("movie/upcoming", page);
       if (typeof result === "string") {
         setErrorMessage(result);
         setFetchedMovies([]);
@@ -36,7 +44,7 @@ const UpcomingMovies = () => {
     };
     fetchData();
     setIsLoading(false);
-  }, []);
+  }, [page]);
 
   return (
     <div className="wrapper">
