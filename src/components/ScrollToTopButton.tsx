@@ -1,3 +1,4 @@
+import { ChevronUp } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const ScrollToTopButton = () => {
@@ -31,7 +32,7 @@ const ScrollToTopButton = () => {
         className="scroll-to-top"
         title="Back to top"
       >
-        ⬆
+        <ChevronUp />
       </button>
     )
   );

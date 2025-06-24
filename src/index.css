@@ -246,5 +246,5 @@
 /* ===================== */
 
 .scroll-to-top {
-  @apply fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full text-lg cursor-pointer z-50 shadow-md hover:bg-blue-700 transition;
+  @apply fixed bottom-8 right-8 bg-dark-100 text-white p-3 rounded-full text-lg cursor-pointer z-50 shadow-md hover:bg-blue-950 transition;
 }
